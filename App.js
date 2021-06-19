@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Image, TextInput, Button, StyleSheet, Text, View } from 'react-native';
 
 import AndrewProfile from './components/AndrewProfile'
+import SignUpScreen from './components/SignUpScreen'
+import OrderDisplay from './components/OrderDisplay'
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -33,7 +35,10 @@ export default function App() {
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="AndrewProfile" component={AndrewProfile}
             options={{title: 'Andrew Chen'}}/>
-        <Stack.Screen name="Order" component={OrderScreen} />
+        <Stack.Screen name="Sign up" component={SignUpScreen}
+            options={{title: 'Sign up'}}/>
+        <Stack.Screen name="Order" component={OrderDisplay} />
+        <Stack.Screen name="Music" component={MusicScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -63,9 +68,15 @@ const HomeScreen = ({ navigation }) => {
         }
       />
       <Button
-        title="About Andrew"
+        title="Music"
         onPress={() =>
-          navigation.navigate('AndrewProfile')
+          navigation.navigate('Music')
+        }
+      />
+      <Button
+        title="Sign Up"
+        onPress={() =>
+          navigation.navigate('Sign up')
         }
       />
     </View>
@@ -75,6 +86,7 @@ const HomeScreen = ({ navigation }) => {
 const AboutScreen = ({ navigation, route }) => {
   return (
     <View>
+      <AndrewProfile/>
       <Text>This was created by Andrew Chen</Text>
       <Text>Copyright 2021 All Rights Reserved</Text>
     </View>
@@ -86,14 +98,6 @@ const RecipeScreen = ({ navigation, route }) => {
     <View>
       <Text>Here are our recipes</Text>
       <RecipeDisplay/>
-    </View>
-  )
-}
-
-const OrderScreen = ({ navigation, route}) => {
-  return(
-    <View>
-      <OrderDisplay/>
     </View>
   )
 }
@@ -122,20 +126,13 @@ const RecipeDisplay = (props) => {
   )
 }
 
-const OrderDisplay = (props) => {
-  const [text, setText] = useState(props.item);
-
+const MusicScreen = ({ navigation, route }) => {
   return(
     <View>
-      <Text>What do you want to order?</Text>
-      <TextInput
-        style={{
-          height: 36,
-          borderColor: 'black',
-          borderWidth: 1
-        }}
-        onChangeText={text => {setText(text)}}
-        defaultValue="Place your order here"
+      <Text>Music</Text>
+      <Image
+        source={{uri:"http://www.wallpapermania.eu/images/lthumbs/2012-12/4003_Piano-keys-in-spiral-shape-HD-wallpaper.jpg"}}
+        style={{width:250, height: 200}}
       />
     </View>
   )
