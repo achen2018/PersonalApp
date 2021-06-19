@@ -1,26 +1,12 @@
 import React, { useState } from "react";
 import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
-
+import OrderCalculator from './OrderCalculator'
 
 const OrderDisplay = (props) => {
   const [text, setText] = useState(props.item);
 
   return(
-    <View>
-      <Text>What do you want to order?</Text>
-      <View style={styles.rowContainer}>
-        <TextInput
-          style={{
-            height: 36,
-            borderColor: 'black',
-            borderWidth: 1
-          }}
-          onChangeText={text => {setText(text)}}
-          defaultValue="Place your order here"
-        />
-        <Button title="Submit"/>
-      </View>
-    </View>
+    <OrderCalculator/>
   )
 }
 
