@@ -9,6 +9,7 @@ import SignUpScreen from './components/SignUpScreen'
 import LoginScreen from './components/LoginScreen'
 import OrderDisplay from './components/OrderDisplay'
 import MusicScreen from './components/MusicScreen'
+import RecipeDisplay from './components/RecipeDisplay'
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -33,7 +34,7 @@ export default function App() {
           component={HomeScreen}
           options={{ title: 'Welcome to Musipeas' }}
         />
-        <Stack.Screen name="Recipes" component={RecipeScreen} />
+        <Stack.Screen name="Recipes" component={RecipeDisplay} />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="AndrewProfile" component={AndrewProfile}
             options={{title: 'Andrew Chen'}}/>
@@ -111,43 +112,6 @@ const AboutScreen = ({ navigation, route }) => {
     </View>
   );
 };
-
-const RecipeScreen = ({ navigation, route }) => {
-  return(
-    <View>
-      <Text>Share Recipes</Text>
-      <RecipeDisplay/>
-    </View>
-  )
-}
-
-const RecipeDisplay = (props) => {
-  const [text, setText] = useState(props.name);
-
-  return (
-    <View>
-      <Image
-        source={{uri:"https://champagnelifegifts.com/wp-content/uploads/2017/11/00001-Deluxe-Wine-Cheese-Basket-Copy_preview.png"}}
-        style={{width:300, height:350}}
-      />
-      <Text>What recipes are you looking for?</Text>
-      <TextInput
-        style={{
-          height: 36,
-          borderColor: 'black',
-          borderWidth: 1
-        }}
-        onChangeText={text => {setText(text)}}
-        defaultValue="Search Recipes"
-      />
-      <Button
-        title='search'
-        color='blue'
-      />
-    </View>
-
-  )
-}
 
 const styles = StyleSheet.create({
   container: {
