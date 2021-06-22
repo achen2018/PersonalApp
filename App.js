@@ -6,6 +6,7 @@ import { Image, TextInput, Button, StyleSheet, Text, View } from 'react-native';
 
 import AndrewProfile from './components/AndrewProfile'
 import SignUpScreen from './components/SignUpScreen'
+import LoginScreen from './components/LoginScreen'
 import OrderDisplay from './components/OrderDisplay'
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -37,6 +38,8 @@ export default function App() {
             options={{title: 'Andrew Chen'}}/>
         <Stack.Screen name="Sign up" component={SignUpScreen}
             options={{title: 'Sign up'}}/>
+        <Stack.Screen name="Login" component={LoginScreen}
+            options={{title: 'Login'}}/>
         <Stack.Screen name="Order" component={OrderDisplay} />
         <Stack.Screen name="Music" component={MusicScreen} />
       </Stack.Navigator>
@@ -46,38 +49,53 @@ export default function App() {
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.rowContainer}>
-      <Button
-        title="Recipes"
-        color="green"
-        onPress={() =>
-          navigation.navigate('Recipes')
-        }
-      />
-      <Button
-        title="About"
-        color="red"
-        onPress={() =>
-          navigation.navigate('About')
-        }
-      />
-      <Button
-        title="Order"
-        onPress={() =>
-          navigation.navigate('Order')
-        }
-      />
-      <Button
-        title="Music"
-        onPress={() =>
-          navigation.navigate('Music')
-        }
-      />
-      <Button
-        title="Sign Up"
-        onPress={() =>
-          navigation.navigate('Sign up')
-        }
+    <View>
+      <View style={styles.rowContainer}>
+        <Button
+          title="Recipes"
+          color="green"
+          onPress={() =>
+            navigation.navigate('Recipes')
+          }
+        />
+        <Button
+          title="About"
+          color="red"
+          onPress={() =>
+            navigation.navigate('About')
+          }
+        />
+        <Button
+          title="Order"
+          onPress={() =>
+            navigation.navigate('Order')
+          }
+        />
+        <Button
+          title="Music"
+          color="green"
+          onPress={() =>
+            navigation.navigate('Music')
+          }
+        />
+        <Button
+          title="Sign Up"
+          color="red"
+          onPress={() =>
+            navigation.navigate('Sign up')
+          }
+        />
+        <Button
+          title="Login"
+          color="blue"
+          onPress={() =>
+            navigation.navigate('Login')
+          }
+        />
+      </View>
+      <Image
+        source={{uri:"https://s3-us-west-2.amazonaws.com/ghost-blog-prod/2014/11/music-meal.png"}}
+        style={{width:500, height:250}}
       />
     </View>
   );
@@ -96,7 +114,7 @@ const AboutScreen = ({ navigation, route }) => {
 const RecipeScreen = ({ navigation, route }) => {
   return(
     <View>
-      <Text>Here are our recipes</Text>
+      <Text>Share Recipes</Text>
       <RecipeDisplay/>
     </View>
   )
@@ -134,6 +152,12 @@ const MusicScreen = ({ navigation, route }) => {
         source={{uri:"http://www.wallpapermania.eu/images/lthumbs/2012-12/4003_Piano-keys-in-spiral-shape-HD-wallpaper.jpg"}}
         style={{width:250, height: 200}}
       />
+      <View style = {styles.rowContainer}>
+        <TextInput/>
+        <Button
+          title="Share"
+          color="Red"/>
+      </View>
     </View>
   )
 }
