@@ -8,6 +8,7 @@ import AndrewProfile from './components/AndrewProfile'
 import SignUpScreen from './components/SignUpScreen'
 import LoginScreen from './components/LoginScreen'
 import OrderDisplay from './components/OrderDisplay'
+import MusicScreen from './components/MusicScreen'
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -30,7 +31,7 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: 'Welcome to Andrews Site' }}
+          options={{ title: 'Welcome to Musipeas' }}
         />
         <Stack.Screen name="Recipes" component={RecipeScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
@@ -41,7 +42,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen}
             options={{title: 'Login'}}/>
         <Stack.Screen name="Order" component={OrderDisplay} />
-        <Stack.Screen name="Music" component={MusicScreen} />
+        <Stack.Screen name="MusicScreen" component={MusicScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -75,11 +76,11 @@ const HomeScreen = ({ navigation }) => {
           title="Music"
           color="green"
           onPress={() =>
-            navigation.navigate('Music')
+            navigation.navigate('MusicScreen')
           }
         />
         <Button
-          title="Sign Up"
+          title="Create Account"
           color="red"
           onPress={() =>
             navigation.navigate('Sign up')
@@ -139,26 +140,12 @@ const RecipeDisplay = (props) => {
         onChangeText={text => {setText(text)}}
         defaultValue="Search Recipes"
       />
-    </View>
-
-  )
-}
-
-const MusicScreen = ({ navigation, route }) => {
-  return(
-    <View>
-      <Text>Music</Text>
-      <Image
-        source={{uri:"http://www.wallpapermania.eu/images/lthumbs/2012-12/4003_Piano-keys-in-spiral-shape-HD-wallpaper.jpg"}}
-        style={{width:250, height: 200}}
+      <Button
+        title='search'
+        color='blue'
       />
-      <View style = {styles.rowContainer}>
-        <TextInput/>
-        <Button
-          title="Share"
-          color="Red"/>
-      </View>
     </View>
+
   )
 }
 
