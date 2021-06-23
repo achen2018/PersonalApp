@@ -20,7 +20,7 @@ const RecipeDisplay = (props) => {
          let data = null
          if (jsonValue!=null) {
            data = JSON.parse(jsonValue)
-           setToDoItems(data)
+           setRecipeList(data)
            console.log('just set recipe title and description')
          } else {
            console.log('just read a null value from Storage')
@@ -40,7 +40,7 @@ const RecipeDisplay = (props) => {
   const storeData = async (value) => {
        try {
          const jsonValue = JSON.stringify(value)
-         await AsyncStorage.setItem('@todo_list', jsonValue)
+         await AsyncStorage.setItem('@reicpe_list', jsonValue)
          console.log('just stored '+jsonValue)
        } catch (e) {
          console.log("error in storeData ")
@@ -117,11 +117,11 @@ const RecipeDisplay = (props) => {
           onPress={() => {
             const newRecipeList=
             recipeList.concat(
-              {'title': title, 'description': description}
+              {'title': title,
+              'description': description}
             )
-            setRecipeList(recipeList.concat(
-              {'title': title, 'description': description}
-            ))
+            setRecipeList(newRecipeList)
+            storeData(newRecipeList)
             setTitle("")
             setDescription("")
           }}
@@ -131,7 +131,7 @@ const RecipeDisplay = (props) => {
         data={recipeList}
         renderItem={renderRecipeItem}
         keyExtractor={item => item.title}
-      />  
+      />
     </View>
 
   )
