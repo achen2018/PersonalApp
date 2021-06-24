@@ -69,6 +69,7 @@ const HomeScreen = ({ navigation }) => {
         />
         <Button
           title="Order"
+          color="blue"
           onPress={() =>
             navigation.navigate('Order')
           }

@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const RecipeDisplay = (props) => {
   const [search, setSearch] = useState(props.name);
   const [title, setTitle] = useState("")
+  const [ingredients, setIngredients] = useState("")
   const [description, setDescription] = useState("")
   const [recipeList, setRecipeList] = useState([])
 
@@ -64,6 +65,7 @@ const RecipeDisplay = (props) => {
     return(
       <View style={{border:'thin solid blue'}}>
         <Text>{item.title}</Text>
+        <Text>{item.ingredients}</Text>
         <Text>{item.description}</Text>
       </View>
     )
@@ -103,6 +105,16 @@ const RecipeDisplay = (props) => {
       <View>
         <TextInput
           style={{height: 20}}
+          placeholder="Enter Ingredients"
+          onChangeText={text => {
+                setIngredients(text);
+          }}
+          value={ingredients}
+        />
+      </View>
+      <View>
+        <TextInput
+          style={{height: 20}}
           placeholder="Enter Description"
           onChangeText={text => {
                 setDescription(text);
@@ -118,11 +130,13 @@ const RecipeDisplay = (props) => {
             const newRecipeList=
             recipeList.concat(
               {'title': title,
+              'ingredients': ingredients,
               'description': description}
             )
             setRecipeList(newRecipeList)
             storeData(newRecipeList)
             setTitle("")
+            setIngredients("")
             setDescription("")
           }}
         />

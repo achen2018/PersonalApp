@@ -39,7 +39,7 @@ const MusicScreen = ({ navigation, route }) => {
   const storeData = async (value) => {
         try {
           const jsonValue = JSON.stringify(value)
-          await AsyncStorage.setItem('@todo_list', jsonValue)
+          await AsyncStorage.setItem('@music_list', jsonValue)
           console.log('just stored '+jsonValue)
         } catch (e) {
           console.log("error in storeData ")
@@ -59,19 +59,56 @@ const MusicScreen = ({ navigation, route }) => {
         }
   }
 
+  const renderMusicItem = ({item}) => {
+    return(
+      <View style={{border:'thin solid blue'}}>
+        <Text>{item.title}</Text>
+        <Text>{item.description}</Text>
+      </View>
+    )
+  }
+
   return(
-    <View>
+    <View style={styles.container}>
       <Text>Music</Text>
       <Image
         source={{uri:"http://www.wallpapermania.eu/images/lthumbs/2012-12/4003_Piano-keys-in-spiral-shape-HD-wallpaper.jpg"}}
         style={{width:250, height: 200}}
       />
-      <View style = {styles.rowContainer}>
-        <TextInput/>
-        <Button
-          title="Share"
-          color="Red"/>
-      </View>
+      <TextInput
+        style={{height:20}}
+        placeholder="Enter title"
+        onChangeText={text => {
+          setTitle(text);
+        }}
+      />
+      <TextInput
+        style={{height:20}}
+        placeholder="Enter link"
+        onChangeText={text => {
+          setLink(text);
+        }}
+      />
+      <Button
+        title="Share"
+        color='red'
+        onPress = {() => {
+          const newMusicList= musicList.concat(
+            {
+              'title':title,
+              'link': link
+            })
+          setMusicList(newMusicList)
+          storeData(newMusicList)
+          setTitle("")
+          setLink("")
+        }}
+        />
+      <FlatList
+        data={musicList}
+        renderItem={renderMusicItem}
+        keyExtractor={item => item.title}
+      />
     </View>
   )
 }
