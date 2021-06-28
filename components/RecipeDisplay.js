@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {View, Text, TextInput, StyleSheet, Button, Image,
-        SafeAreaView, FlatList, ScrollView, Platform} from 'react-native';
+        SafeAreaView, FlatList, ScrollView, Platform,
+        TouchableOpacity} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
+import {Camera} from 'expo-camera';
 
 const RecipeDisplay = (props) => {
   const [search, setSearch] = useState(props.name);
@@ -12,6 +14,8 @@ const RecipeDisplay = (props) => {
   const [description, setDescription] = useState("")
   const [recipeList, setRecipeList] = useState([])
   const [image, setImage] = useState(null);
+  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {getData()}
            ,[])
@@ -99,6 +103,12 @@ const RecipeDisplay = (props) => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
 
   return (
     <View>
@@ -177,8 +187,22 @@ const RecipeDisplay = (props) => {
         renderItem={renderRecipeItem}
         keyExtractor={item => item.title}
       />
+      <Camera style={styles.camera} type={type}>
+       <View style={styles.buttonContainer}>
+         <TouchableOpacity
+           style={styles.button}
+           onPress={() => {
+             setType(
+               type === Camera.Constants.Type.back
+                 ? Camera.Constants.Type.front
+                 : Camera.Constants.Type.back
+             );
+           }}>
+           <Text style={styles.text}> Flip </Text>
+         </TouchableOpacity>
+       </View>
+     </Camera>
     </View>
-
   )
 }
 
@@ -200,6 +224,20 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    margin: 20,
+  },
+  button: {
+    flex: 0.1,
+    alignSelf: 'flex-end',
+    alignItems: 'center',
   },
   title: {
     fontSize: 32,
