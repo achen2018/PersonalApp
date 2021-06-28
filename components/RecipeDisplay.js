@@ -121,7 +121,7 @@ const RecipeDisplay = (props) => {
         color='blue'
       />
       <View>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
+      <Button title="Pick an image from camera roll" color = "green" onPress={pickImage} />
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
         <TextInput
           style={{height: 20}}
@@ -165,6 +165,7 @@ const RecipeDisplay = (props) => {
             )
             setRecipeList(newRecipeList)
             storeData(newRecipeList)
+            setImage(null)
             setTitle("")
             setIngredients("")
             setDescription("")
