@@ -117,15 +117,15 @@ const RecipeDisplay = ({navigation}) => {
         defaultValue="Search Recipes"
       />
       <Button
+        title='search'
+        color='blue'
+      />
+      <Button
         title="Camera"
         color="brown"
         onPress={() =>
           navigation.navigate('Camera')
         }
-      />
-      <Button
-        title='search'
-        color='blue'
       />
       <View>
       <Button title="Pick an image from camera roll" color = "green" onPress={pickImage} />
