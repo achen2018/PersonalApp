@@ -22,7 +22,7 @@ const MusicScreen = ({ navigation, route }) => {
           if (jsonValue!=null) {
             data = JSON.parse(jsonValue)
             setMusicList(data)
-            console.log('just set Info, Name and Email')
+            console.log('just set Video title and url')
           } else {
             console.log('just read a null value from Storage')
             setInfo({})

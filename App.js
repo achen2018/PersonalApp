@@ -10,6 +10,7 @@ import LoginScreen from './components/LoginScreen'
 import OrderDisplay from './components/OrderDisplay'
 import MusicScreen from './components/MusicScreen'
 import RecipeDisplay from './components/RecipeDisplay'
+import Camera from './components/Camera'
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -44,6 +45,7 @@ export default function App() {
             options={{title: 'Login'}}/>
         <Stack.Screen name="Order" component={OrderDisplay} />
         <Stack.Screen name="MusicScreen" component={MusicScreen}/>
+        <Stack.Screen name="Camera" component={Camera}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

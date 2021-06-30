@@ -4,7 +4,9 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements'
+import { NavigationContainer } from '@react-navigation/native';
 
+import { createStackNavigator } from '@react-navigation/stack';
 
 export default function AndrewProfile({route,navigation}) {
   return (
@@ -23,7 +25,6 @@ export default function AndrewProfile({route,navigation}) {
       <Button title="See Default Profile"
           onPress={() =>
             navigation.navigate('Profile',{name:"Andrew Chen"})} />
-
     </View>
   );
 }

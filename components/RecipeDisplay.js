@@ -5,17 +5,14 @@ import {View, Text, TextInput, StyleSheet, Button, Image,
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
-import {Camera} from 'expo-camera';
 
-const RecipeDisplay = (props) => {
-  const [search, setSearch] = useState(props.name);
+const RecipeDisplay = ({navigation}) => {
+  const [search, setSearch] = useState("");
   const [title, setTitle] = useState("")
   const [ingredients, setIngredients] = useState("")
   const [description, setDescription] = useState("")
   const [recipeList, setRecipeList] = useState([])
   const [image, setImage] = useState(null);
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {getData()}
            ,[])
@@ -103,13 +100,6 @@ const RecipeDisplay = (props) => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
-
   return (
     <View>
       <Image
@@ -125,6 +115,13 @@ const RecipeDisplay = (props) => {
         }}
         onChangeText={text => {setSearch(text)}}
         defaultValue="Search Recipes"
+      />
+      <Button
+        title="Camera"
+        color="brown"
+        onPress={() =>
+          navigation.navigate('Camera')
+        }
       />
       <Button
         title='search'
@@ -187,21 +184,6 @@ const RecipeDisplay = (props) => {
         renderItem={renderRecipeItem}
         keyExtractor={item => item.title}
       />
-      <Camera style={styles.camera} type={type}>
-       <View style={styles.buttonContainer}>
-         <TouchableOpacity
-           style={styles.button}
-           onPress={() => {
-             setType(
-               type === Camera.Constants.Type.back
-                 ? Camera.Constants.Type.front
-                 : Camera.Constants.Type.back
-             );
-           }}>
-           <Text style={styles.text}> Flip </Text>
-         </TouchableOpacity>
-       </View>
-     </Camera>
     </View>
   )
 }
