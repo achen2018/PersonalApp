@@ -9,7 +9,7 @@ const MusicScreen = ({ navigation, route }) => {
   const [title, setTitle] = useState("")
   const [link, setLink] = useState("")
   const [musicList, setMusicList] = useState([])
-  const [recording, setRecording] = React.useState();
+  const [recording, setRecording] = useState();
 
   useEffect(() => {getData()}
             ,[])
