@@ -32,10 +32,9 @@ const ItemList = () => {
 }
 
 const OrderCalculator = (props) => {
-
-  const [item, setItem] = useState("");
-  const [price, setPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [numCake, setNumCake] = useState("");
+  const [numCookie, setNumCookie] = useState("");
+  const [numPie, setNumPie] = useState("")
   const [totalPrice, setTotalPrice] = useState(0);
 
   return(
@@ -43,11 +42,46 @@ const OrderCalculator = (props) => {
       <Text style={styles.header}>
        Your Order
       </Text>
-      <TextInput/>
+      <View style={styles.rowContainer}>
+        <TextInput
+          style={{height: 40}}
+          placeholder="Number of Cakes"
+          onChangeText={text => {
+               setNumCake(text);
+             }}
+          defaultValue={"number of cakes"}
+          value = {numCake}
+        />
+        <Text>{numCake} @ $10.00 each</Text>
+      </View>
+      <View style={styles.rowContainer}>
+        <TextInput
+          style={{height: 40}}
+          placeholder="Number of Cookies"
+          onChangeText={text => {
+               setNumCookie(text);
+             }}
+          defaultValue={"number of cookies"}
+          value = {numCookie}
+        />
+        <Text>{numCookie} @ $4.00 per dozen</Text>
+      </View>
+      <View style={styles.rowContainer}>
+        <TextInput
+          style={{height: 40}}
+          placeholder="Number of Pies"
+          onChangeText={text => {
+               setNumPie(text);
+             }}
+          defaultValue={"number of pies"}
+          value = {numPie}
+        />
+        <Text>{numPie} @ $7.00 each</Text>
+      </View>
       <Button
           color='red' title='Calculate Total'
           onPress = {() =>
-               setTotalPrice(quantity*price)          }
+               setTotalPrice(parseFloat(10*numCake+4*numCookie+7*numPie))          }
       />
       <Text> Your total is {totalPrice} </Text>
     </View>

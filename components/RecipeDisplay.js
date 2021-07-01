@@ -44,7 +44,7 @@ const RecipeDisplay = ({navigation}) => {
   const storeData = async (value) => {
        try {
          const jsonValue = JSON.stringify(value)
-         await AsyncStorage.setItem('@recipe_list', jsonValue)
+         await AsyncStorage.setItem('@reicpe_list', jsonValue)
          console.log('just stored '+jsonValue)
        } catch (e) {
          console.log("error in storeData ")
