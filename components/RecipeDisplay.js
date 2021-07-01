@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {View, Text, TextInput, StyleSheet, Button, Image,
         SafeAreaView, FlatList, ScrollView, Platform,
         TouchableOpacity} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 const RecipeDisplay = ({navigation}) => {
   const [search, setSearch] = useState("");
@@ -13,6 +14,8 @@ const RecipeDisplay = ({navigation}) => {
   const [description, setDescription] = useState("")
   const [recipeList, setRecipeList] = useState([])
   const [image, setImage] = useState(null);
+  const video = useRef(null);
+  const [status, setStatus] = React.useState({});
 
   useEffect(() => {getData()}
            ,[])
@@ -44,7 +47,7 @@ const RecipeDisplay = ({navigation}) => {
   const storeData = async (value) => {
        try {
          const jsonValue = JSON.stringify(value)
-         await AsyncStorage.setItem('@reicpe_list', jsonValue)
+         await AsyncStorage.setItem('@recipe_list', jsonValue)
          console.log('just stored '+jsonValue)
        } catch (e) {
          console.log("error in storeData ")
@@ -102,6 +105,25 @@ const RecipeDisplay = ({navigation}) => {
 
   return (
     <View>
+    <Video
+      ref={video}
+      style={styles.video}
+      source={{
+        uri: 'https://www.youtube.com/watch?v=C6XQuegX-m0',
+        }}
+        useNativeControls
+        resizeMode="contain"
+        isLooping
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+      <View style={styles.buttons}>
+        <Button
+          title={status.isPlaying ? 'Pause' : 'Play'}
+          onPress={() =>
+            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+          }
+        />
+      </View>
       <Image
         source={{uri:"https://champagnelifegifts.com/wp-content/uploads/2017/11/00001-Deluxe-Wine-Cheese-Basket-Copy_preview.png"}}
         style={{width:300, height:350}}
@@ -228,5 +250,10 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  video: {
+    alignSelf: 'center',
+    width: 320,
+    height: 200,
   },
 });
